@@ -13,6 +13,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let value = '';
 
+    // Password validation elements
+    const lengthCheck = document.getElementById('length-check');
+    const numberCheck = document.getElementById('number-check');
+
+    function validatePassword(password) {
+        // Check length (12+ characters)
+        const hasValidLength = password.length >= 12;
+        if (hasValidLength) {
+            lengthCheck.classList.add('valid');
+        } else {
+            lengthCheck.classList.remove('valid');
+        }
+
+        // Check for at least one number
+        const hasNumber = /\d/.test(password);
+        if (hasNumber) {
+            numberCheck.classList.add('valid');
+        } else {
+            numberCheck.classList.remove('valid');
+        }
+    }
+
     passwordInput.addEventListener('input', function (e) {
         const input = e.target;
         const newValue = input.value;
@@ -26,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         input.value = '*'.repeat(value.length);
         realPassword.value = value;
+        
+        // Validate password
+        validatePassword(value);
     });
 
     passwordInput.addEventListener('keydown', function (e) {

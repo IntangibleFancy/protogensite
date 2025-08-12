@@ -7,11 +7,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Welcome Back</h1>
+        <h1>Create a New Account</h1>
         <form class="login-form">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -20,8 +21,18 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="text" id="password" name="password" required autocomplete="off" maxlength="40">
+                <div class="password-validation">
+                    <div class="validation-item" id="length-check">
+                        <span class="material-icons validation-icon">check_circle</span>
+                        <span class="validation-text">At least 12 characters</span>
+                    </div>
+                    <div class="validation-item" id="number-check">
+                        <span class="material-icons validation-icon">check_circle</span>
+                        <span class="validation-text">Contains at least one number</span>
+                    </div>
+                </div>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit">Sign Up</button>
             <div class="forgot-password">
                 <a href="#">Forgot your password?</a>
             </div>
