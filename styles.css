@@ -1,43 +1,115 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fa;
+    min-height: 100vh;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #4f006e 0%, #7b2ff2 50%, #007cf0 100%);
     color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+
+
+
 .container {
-    max-width: 500px;
-    margin: 100px auto;
+    max-width: 400px;
+    width: 100%;
     background: #fff;
     padding: 40px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border-radius: 0;
+    box-shadow: 0 12px 48px 0 rgba(44, 44, 84, 0.25), 0 1.5px 8px 0 rgba(44,44,84,0.10);
     text-align: center;
 }
 
+
 h1 {
-    margin-bottom: 16px;
-    font-size: 2.5rem;
+    margin-bottom: 24px;
+    font-size: 2rem;
     color: #2a72e5;
+    font-weight: 700;
 }
 
-p {
-    margin-bottom: 32px;
-    font-size: 1.2rem;
+h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    font-weight: 700;
 }
 
-button {
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-group label {
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input[type="password"] {
+    -webkit-text-security: disc;
+    font-size: 2rem;
+    color: #7b2ff2;
+    letter-spacing: 0.2em;
+    font-weight: bold;
+}
+
+input#password {
+    color: #7b2ff2;
+    font-weight: bold;
+    font-size: 24px;
+    height: 40px;
+    line-height: 24px;
+    padding: 12px 10px 0 10px;
+    box-sizing: border-box;
+}
+
+button[type="submit"] {
     background: #2a72e5;
     color: #fff;
     border: none;
-    padding: 14px 32px;
+    padding: 12px 0;
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.2s;
+    width: 100%;
+    margin-top: 10px;
 }
 
-button:hover {
+button[type="submit"]:hover {
     background: #174a8c;
+}
+
+.forgot-password {
+    margin-top: 14px;
+    text-align: right;
+}
+
+.forgot-password a {
+    color: #2a72e5;
+    text-decoration: none;
+    font-size: 0.98rem;
+    transition: text-decoration 0.2s;
+}
+
+.forgot-password a:hover {
+    text-decoration: underline;
 }
