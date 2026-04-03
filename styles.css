@@ -254,6 +254,23 @@ body.about-page .container {
     font-weight: 500;
 }
 
+.mustache-advice {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.mustache-advice-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
 @media (max-width: 768px) {
     .content-layout {
         flex-direction: column;

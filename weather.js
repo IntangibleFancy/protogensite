@@ -1,8 +1,37 @@
 // Weather widget using Open-Meteo API
 document.addEventListener('DOMContentLoaded', function() {
     const weatherWidget = document.getElementById('weather-widget');
+    let mustacheMessages = null;
     
-    // Weather code to icon and description mapping
+    // Load mustache messages
+    async function loadMustacheMessages() {
+        try {
+            const response = await fetch('mustache-messages.json');
+            const data = await response.json();
+            mustacheMessages = data.mustacheWeatherMessages;
+        } catch (error) {
+            console.error('Error loading mustache messages:', error);
+            // Fallback messages if file fails to load
+            mustacheMessages = {
+                highHumidity: "Perfect mustache weather! The humidity will keep your facial hair naturally moisturized and easier to style.",
+                precipitation: "Rainy day mustache alert! Keep your 'stache dry and consider a waterproof wax to maintain your style.",
+                pleasant: "Ideal conditions for showcasing your mustache! Low humidity and clear skies mean your style will hold all day."
+            };
+        }
+    }
+    
+    // Get mustache advice based on weather conditions
+    function getMustacheAdvice(humidity, precipitation) {
+        if (!mustacheMessages) return '';
+        
+        if (precipitation > 0) {
+            return mustacheMessages.precipitation;
+        } else if (humidity > 70) {
+            return mustacheMessages.highHumidity;
+        } else {
+            return mustacheMessages.pleasant;
+        }
+    }
     const weatherCodes = {
         0: { icon: '☀️', desc: 'Clear sky' },
         1: { icon: '🌤️', desc: 'Mainly clear' },
@@ -84,6 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const precipitation = current.precipitation || 0;
             const windSpeed = current.wind_speed_10m || 'N/A';
             
+            const mustacheAdvice = getMustacheAdvice(humidity, precipitation);
+            
             weatherWidget.innerHTML = `
                 <div class="weather-content">
                     <div class="weather-location">Current Weather</div>
@@ -106,6 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span class="weather-stat-value">${precipitation} mm</span>
                         </div>
                     </div>
+                    ${mustacheAdvice ? `
+                        <div class="mustache-advice">
+                            <div class="mustache-advice-title">🥸 Mustache Forecast</div>
+                            ${mustacheAdvice}
+                        </div>
+                    ` : ''}
                 </div>
             `;
         } catch (error) {
@@ -117,5 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize weather widget
-    getLocation();
+    async function init() {
+        await loadMustacheMessages();
+        getLocation();
+    }
+    
+    init();
 });
