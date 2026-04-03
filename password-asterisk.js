@@ -16,24 +16,46 @@ document.addEventListener('DOMContentLoaded', function () {
     // Password validation elements
     const lengthCheck = document.getElementById('length-check');
     const numberCheck = document.getElementById('number-check');
+    const stacheBtn = document.getElementById('stache-btn');
+
+    let isValidLength = false;
+    let hasNumber = false;
 
     function validatePassword(password) {
         // Check length (12+ characters)
-        const hasValidLength = password.length >= 12;
-        if (hasValidLength) {
+        isValidLength = password.length >= 12;
+        if (isValidLength) {
             lengthCheck.classList.add('valid');
         } else {
             lengthCheck.classList.remove('valid');
         }
 
         // Check for at least one number
-        const hasNumber = /\d/.test(password);
+        hasNumber = /\d/.test(password);
         if (hasNumber) {
             numberCheck.classList.add('valid');
         } else {
             numberCheck.classList.remove('valid');
         }
+
+        // Update button state
+        updateButtonState();
     }
+
+    function updateButtonState() {
+        if (isValidLength && hasNumber) {
+            stacheBtn.disabled = false;
+            stacheBtn.style.opacity = '1';
+            stacheBtn.style.cursor = 'pointer';
+        } else {
+            stacheBtn.disabled = true;
+            stacheBtn.style.opacity = '0.5';
+            stacheBtn.style.cursor = 'not-allowed';
+        }
+    }
+
+    // Initial button state
+    updateButtonState();
 
     passwordInput.addEventListener('input', function (e) {
         const input = e.target;
@@ -60,7 +82,16 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // On form submit, copy the real value to the hidden input
-    passwordInput.form.addEventListener('submit', function () {
-        realPassword.value = value;
+    passwordInput.form.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent default form submission
+        
+        if (isValidLength && hasNumber) {
+            realPassword.value = value;
+            // Navigate to about page if validation passes
+            window.location.href = 'about.html';
+        } else {
+            // Optionally show an error message or just do nothing
+            console.log('Validation criteria not met');
+        }
     });
 });
