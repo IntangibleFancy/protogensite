@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function fetchWeather(lat, lon) {
         try {
             const response = await fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&timezone=auto`
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&current=relative_humidity_2m,precipitation&timezone=auto`
             );
             
             if (!response.ok) {
@@ -73,18 +73,33 @@ document.addEventListener('DOMContentLoaded', function() {
     // Display weather data
     function displayWeather(data) {
         const current = data.current_weather;
+        const currentData = data.current;
         const weatherInfo = weatherCodes[current.weathercode] || { icon: '❓', desc: 'Unknown' };
+        
+        const humidity = currentData.relative_humidity_2m || 'N/A';
+        const precipitation = currentData.precipitation || 0;
         
         weatherWidget.innerHTML = `
             <div class="weather-content">
+                <div class="weather-location">Current Weather</div>
                 <div class="weather-main">
                     <span class="weather-icon">${weatherInfo.icon}</span>
                     <span class="weather-temp">${Math.round(current.temperature)}°C</span>
                 </div>
-                <div class="weather-details">
-                    <div class="weather-location">Current Weather</div>
-                    <div class="weather-description">${weatherInfo.desc}</div>
-                    <div>Wind: ${current.windspeed} km/h</div>
+                <div class="weather-description">${weatherInfo.desc}</div>
+                <div class="weather-stats">
+                    <div class="weather-stat">
+                        <span class="weather-stat-label">Wind:</span>
+                        <span class="weather-stat-value">${current.windspeed} km/h</span>
+                    </div>
+                    <div class="weather-stat">
+                        <span class="weather-stat-label">Humidity:</span>
+                        <span class="weather-stat-value">${humidity}%</span>
+                    </div>
+                    <div class="weather-stat">
+                        <span class="weather-stat-label">Precipitation:</span>
+                        <span class="weather-stat-value">${precipitation} mm</span>
+                    </div>
                 </div>
             </div>
         `;

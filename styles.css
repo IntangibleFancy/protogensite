@@ -162,14 +162,30 @@ body.about-page .container {
 }
 
 /* Weather Widget Styles */
+.content-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.main-content {
+    flex: 1;
+}
+
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
 .weather-widget {
     background: linear-gradient(135deg, #7b2ff2 0%, #007cf0 100%);
     color: white;
     padding: 20px;
     border-radius: 12px;
-    margin-bottom: 24px;
     box-shadow: 0 4px 16px rgba(123, 47, 242, 0.2);
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .weather-loading {
@@ -178,16 +194,15 @@ body.about-page .container {
 }
 
 .weather-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
+    text-align: center;
 }
 
 .weather-main {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
+    margin-bottom: 15px;
 }
 
 .weather-icon {
@@ -200,28 +215,57 @@ body.about-page .container {
 }
 
 .weather-details {
-    text-align: right;
     font-size: 0.9rem;
     opacity: 0.9;
 }
 
 .weather-location {
     font-weight: 500;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
+    font-size: 1rem;
 }
 
 .weather-description {
     text-transform: capitalize;
+    margin-bottom: 12px;
+    font-size: 1rem;
 }
 
-@media (max-width: 480px) {
-    .weather-content {
+.weather-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.weather-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weather-stat-label {
+    opacity: 0.8;
+}
+
+.weather-stat-value {
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .content-layout {
         flex-direction: column;
-        text-align: center;
+        gap: 20px;
     }
     
-    .weather-details {
-        text-align: center;
+    .sidebar {
+        width: 100%;
+    }
+    
+    .weather-widget {
+        margin-bottom: 20px;
     }
 }
 
