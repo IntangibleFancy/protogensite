@@ -80,9 +80,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch weather data from Open-Meteo API
     async function fetchWeather(lat, lon) {
         try {
-            // Updated API call with correct parameter names
+            // Updated API call with imperial units
             const response = await fetch(
-                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&timezone=auto`
+                `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,weather_code,wind_speed_10m&timezone=auto&temperature_unit=fahrenheit&precipitation_unit=inch&wind_speed_unit=mph`
             );
             
             if (!response.ok) {
@@ -113,6 +113,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const precipitation = current.precipitation || 0;
             const windSpeed = current.wind_speed_10m || 'N/A';
             
+            // Format precipitation to show more precision for small amounts
+            const precipitationDisplay = precipitation < 0.01 && precipitation > 0 
+                ? '< 0.01 in' 
+                : precipitation === 0 
+                ? '0 in' 
+                : `${precipitation.toFixed(2)} in`;
+            
             const mustacheAdvice = getMustacheAdvice(humidity, precipitation);
             
             weatherWidget.innerHTML = `
@@ -120,13 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="weather-location">Current Weather</div>
                     <div class="weather-main">
                         <span class="weather-icon">${weatherInfo.icon}</span>
-                        <span class="weather-temp">${Math.round(temperature)}°C</span>
+                        <span class="weather-temp">${Math.round(temperature)}°F</span>
                     </div>
                     <div class="weather-description">${weatherInfo.desc}</div>
                     <div class="weather-stats">
                         <div class="weather-stat">
                             <span class="weather-stat-label">Wind:</span>
-                            <span class="weather-stat-value">${windSpeed} km/h</span>
+                            <span class="weather-stat-value">${windSpeed} mph</span>
                         </div>
                         <div class="weather-stat">
                             <span class="weather-stat-label">Humidity:</span>
@@ -134,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                         <div class="weather-stat">
                             <span class="weather-stat-label">Precipitation:</span>
-                            <span class="weather-stat-value">${precipitation} mm</span>
+                            <span class="weather-stat-value">${precipitationDisplay}</span>
                         </div>
                     </div>
                     ${mustacheAdvice ? `
