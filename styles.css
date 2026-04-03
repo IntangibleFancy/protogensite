@@ -161,6 +161,70 @@ body.about-page .container {
     padding: 50px 40px;
 }
 
+/* Weather Widget Styles */
+.weather-widget {
+    background: linear-gradient(135deg, #7b2ff2 0%, #007cf0 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(123, 47, 242, 0.2);
+    text-align: center;
+}
+
+.weather-loading {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.weather-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.weather-main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.weather-icon {
+    font-size: 2.5rem;
+}
+
+.weather-temp {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.weather-details {
+    text-align: right;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.weather-location {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.weather-description {
+    text-transform: capitalize;
+}
+
+@media (max-width: 480px) {
+    .weather-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .weather-details {
+        text-align: center;
+    }
+}
+
 /* Responsive Design for About Page */
 @media (min-width: 768px) {
     .about-content {
